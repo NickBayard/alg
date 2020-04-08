@@ -26,11 +26,17 @@ def unmerged(merged):
     return a, b
 
 
-@pytest.mark.repeat(200)
+@pytest.mark.repeat(100)
+@pytest.mark.parametrize('data_len, data_max', [(10, 100),
+                                                (100, 500),
+                                                (1000, 5000)])
 def test_merge(merged, unmerged):
     assert merged == merge(unmerged[0], unmerged[1])
 
 @pytest.mark.repeat(10)
+@pytest.mark.parametrize('data_len, data_max', [(10, 100),
+                                                (100, 500),
+                                                (1000, 5000)])
 def test_merge_sort(data):
     new_data = merge_sort(data)
     validate_sorted(new_data)
