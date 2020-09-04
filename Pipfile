@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 pytest = "*"
+pdbpp = "*"
 
 [packages]
 pytest-repeat = "*"
