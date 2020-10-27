@@ -33,6 +33,7 @@ def unmerged(merged):
 def test_merge(merged, unmerged):
     assert merged == merge(unmerged[0], unmerged[1])
 
+
 @pytest.mark.repeat(10)
 @pytest.mark.parametrize('data_len, data_max', [(10, 100),
                                                 (100, 500),

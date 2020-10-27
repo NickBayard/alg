@@ -1,4 +1,4 @@
-def selection_sort(data):
+def selection(data):
     for index, current in enumerate(data):
         least = index
         for index2, check in enumerate(data[index:]):
@@ -6,6 +6,3 @@ def selection_sort(data):
                 least = index2 + index
         if least != index:
             data[index], data[least] = data[least], data[index]
-
-    return data
-

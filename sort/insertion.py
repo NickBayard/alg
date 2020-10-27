@@ -11,5 +11,3 @@ def insertion_sort(data):
                 break
         current += 1
         i = current
-
-    return data
