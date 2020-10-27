@@ -1,13 +1,9 @@
-def insertion_sort(data):
-    i = current = 1
-    while current < len(data):
-        while i:
-            if data[i] < data[i-1]:
-                temp = data[i]
-                data[i] = data[i-1]
-                data[i-1] = temp
-                i -= 1
-            else:
+def sort(data):
+    for index in range(1, len(data)):
+        current = index
+        for check in range(index - 1, -1, -1):
+            if data[check] < data[current]:
                 break
-        current += 1
-        i = current
+            #swap
+            data[check], data[current] = data[current], data[check]
+            current -= 1
