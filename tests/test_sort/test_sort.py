@@ -1,5 +1,5 @@
 import pytest
-from sort import selection, insertion
+from sort import selection, insertion, quick
 from tests.test_sort.common import validate_sorted
 
 
@@ -20,4 +20,11 @@ def test_selection_sort(data):
                                                 ])
 def test_insertion_sort(data):
     insertion.sort(data)
+    validate_sorted(data)
+
+
+@pytest.mark.parametrize('data_len, data_max', [(10, 100),
+                                                ])
+def test_quick_sort(data):
+    quick.sort(data)
     validate_sorted(data)
