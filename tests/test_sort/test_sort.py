@@ -1,3 +1,4 @@
+import sys
 import pytest
 from sort import selection, insertion, quick
 from tests.test_sort.common import validate_sorted
