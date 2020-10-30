@@ -7,7 +7,6 @@ from tests.test_sort.common import validate_sorted
 @pytest.mark.repeat(10)
 @pytest.mark.parametrize('data_len, data_max', [(10, 100),
                                                 (100, 500),
-                                                #(1000, 5000),
                                                 ])
 def test_selection_sort(data):
     selection.sort(data)
@@ -17,15 +16,16 @@ def test_selection_sort(data):
 @pytest.mark.repeat(10)
 @pytest.mark.parametrize('data_len, data_max', [(10, 100),
                                                 (100, 500),
-                                                #(1000, 5000),
                                                 ])
 def test_insertion_sort(data):
     insertion.sort(data)
     validate_sorted(data)
 
 
+@pytest.mark.repeat(10)
 @pytest.mark.parametrize('data_len, data_max', [(10, 100),
+                                                (100, 500),
                                                 ])
 def test_quick_sort(data):
-    quick.sort(data)
+    quick.sort(data, shuffle=False)
     validate_sorted(data)

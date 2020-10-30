@@ -36,6 +36,6 @@ def sort(data, start=0, end=None, shuffle=True):
 
         if end - high >= 2:
             sort(data, high+1, end, shuffle=False)
-    else:
-        sort(data, start + 1, end, shuffle=False)
+    elif end - start >= 2:
+        sort(data, start+1, end, shuffle=False)
 
