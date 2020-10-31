@@ -1,11 +1,11 @@
 import pytest
 
-from stack_queue.dynamic_array import Stack, FIFO
+from stack_queue.FIFO_LIFO import LIFO, FIFO
 
 
 @pytest.fixture
 def stack():
-    return Stack()
+    return LIFO()
 
 
 @pytest.fixture
