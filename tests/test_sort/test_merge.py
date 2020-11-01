@@ -2,7 +2,7 @@ import pytest
 import random
 
 from sort.merge import merge_sort, merge
-from tests.test_sort.common import validate_sorted
+from tests.common import validate_sorted
 
 @pytest.fixture
 def merged(data):
@@ -26,7 +26,7 @@ def unmerged(merged):
     return a, b
 
 
-@pytest.mark.repeat(100)
+@pytest.mark.repeat(10)
 @pytest.mark.parametrize('data_len, data_max', [(10, 100),
                                                 (100, 500),
                                                 (1000, 5000)])

@@ -1,7 +1,7 @@
 from stack_queue.dynamic_array import Array
 
 
-class PriorityQueue(Array):
+class Heap(Array):
     def __init__(self, size=10):
         self.bottom = 0
         super().__init__(size)
