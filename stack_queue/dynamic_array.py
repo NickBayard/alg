@@ -13,7 +13,7 @@ class Array:
 
     def set(self, index, value):
         if index >= len(self.backing):
-            raise Excpetion(f'Index {index} too high for array of size {len(self.backing)}')
+            raise Exception(f'Index {index} too high for array of size {len(self.backing)}')
 
         self.backing[index] = value
 
@@ -42,8 +42,8 @@ class Array:
         self.capacity = capacity
         self.backing = backing
 
-    def shrink(self, direction)=Direction.RIGHT:
-        capacity = self.capacity / 2
+    def shrink(self, direction=Direction.RIGHT):
+        capacity = self.capacity // 2
         backing = [None] * capacity
 
         if direction == Direction.RIGHT:

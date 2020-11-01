@@ -8,7 +8,7 @@ class PriorityQueue(Array):
 
     def insert(self, value):
         self.bottom += 1
-        if self.bottom = self.capacity:
+        if self.bottom == self.capacity:
             self.grow()
         self.set(self.bottom, value)
         self.swim()
@@ -16,10 +16,10 @@ class PriorityQueue(Array):
     def pop_max(self):
         value = self.get(1)
         self.swap(1, self.bottom)
-        self.set(self.botton, None)
+        self.set(self.bottom, None)
         self.bottom -= 1
 
-        if self.bottom < self.capacity / 2:
+        if self.bottom < (self.capacity // 2):
             self.shrink()
 
         self.sink()
@@ -31,7 +31,7 @@ class PriorityQueue(Array):
            index = self.bottom
 
         while index > 1:
-            parent = index / 2
+            parent = index // 2
             if self.get(parent) >= self.get(index):
                 break
             self.swap(parent, index)
@@ -44,7 +44,7 @@ class PriorityQueue(Array):
             if child < self.bottom and self.get(child) < self.get(child+1):
                 child += 1
 
-            if self.get(child) >= self.get(index):
+            if self.get(child) <= self.get(index):
                 break
 
             self.swap(index, child)
