@@ -6,10 +6,12 @@ class Node:
         self.right = None
 
     def __repr__(self):
-        return f'(key={self.key}, value={self.value}, left={self.left}, right={self.right})'
-
+        left = f', l={self.left}' if self.left else ''
+        right = f', r={self.right}' if self.right else ''
+        return f'<{self.key}{left}{right}>'
 
     def put(self, node):
+        ''' Insert a node '''
         if node.key <= self.key:
             # place to left
             if self.left is None:
@@ -24,6 +26,7 @@ class Node:
                 self.right.put(node)
 
     def get(self, key):
+        ''' Find a node '''
         if self.left is not None:
             if self.left.key == key:
                 return self.left
@@ -38,54 +41,70 @@ class Node:
         raise Exception(f'key {key} not found')
 
     def delete(self, key):
-        if self.key == key:
-            if self.right is not None:
-                # swap with right min
-                # FIXME TODO copying the min key isn't enough.  It's parent must no longer link to it.
+        ''' Delete a node '''
+        if key == self.key:
+            if self.left is not None:
+                # pick right most object from left (immediate predecessor)
+                max = self.left.max()
+                self.key = max.key
+                self.value = max.value
+
+                # recursively delete max from left
+                if not self.left.delete(max.key):
+                    self.left = None
+                return True
+
+            elif self.right is not None:
+                # pick left most ojbect from right (immediate successor)
                 min = self.right.min()
                 self.key = min.key
                 self.value = min.value
 
-                if self.right.key == self.key:
+                # recursively delete min from right
+                if not self.right.delete(min.key):
                     self.right = None
 
-                temp_right = min.right
-                if temp_right is not None:
-                    self.put(temp_right)
-
-                return True
-
-            elif self.left is not None:
-                # clone left
-                temp = self.left
-                self.left = self.left.left
-                self.right = self.left.right
-                self.key = self.left.key
-                self.value = self.left.value
                 return True
             else:
-                return False # self must be deleted by parent
-        elif self.left is not None and key < self.key:
+                # I have no children, delete me from parent
+                return False
+
+        elif key < self.key and self.left is not None:
+            # look to the left
             if not self.left.delete(key):
                 self.left = None
             return True
-        elif self.right is not None and key > self.key:
+
+        elif key > self.key and self.right is not None:
+            # look to the right
             if not self.right.delete(key):
                 self.right = None
             return True
 
+        # key not found
         raise Exception(f'Key {key} not found')
 
     def min(self):
+        ''' Find the minimum node in this three '''
         if self.left is None:
             return self
         else:
             return self.left.min()
 
+    def max(self):
+        ''' Find the maximum node in this three '''
+        if self.right is None:
+            return self
+        else:
+            return self.right.min()
+
 
 class BST:
     def __init__(self):
         self.root = None
+
+    def __repr__(self):
+        return repr(self.root)
 
     def put(self, key, value):
         node = Node(key, value)

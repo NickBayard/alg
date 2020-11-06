@@ -26,7 +26,7 @@ def values(data_len, all_words):
 
 
 @pytest.mark.repeat(10)
-@pytest.mark.parametrize('data_len', [3])
+@pytest.mark.parametrize('data_len', [10])
 def test_bst(bst, unique_data, values):
     assert bst.root is None
 
@@ -40,8 +40,8 @@ def test_bst(bst, unique_data, values):
         min_node = bst.root.min()
         assert key == min_node.key
         assert value == min_node.value
-        bst.delete(min_node.key)
+        bst.delete(key)
 
         # make sure it's deleted
         with pytest.raises(Exception):
-            bst.get(min_node.key)
+            bst.get(key)
