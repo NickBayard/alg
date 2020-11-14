@@ -7,9 +7,9 @@ verify_ssl = true
 pytest = "*"
 pdbpp = "*"
 pylint = "*"
+pytest-repeat = "*"
 
 [packages]
-pytest-repeat = "*"
 
 [requires]
 python_version = "3.8"

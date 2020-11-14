@@ -1,28 +1,11 @@
 import pytest
-import random
 
-from pathlib import Path
 from binary_tree.search import BST
 
 
 @pytest.fixture
 def bst():
     return BST()
-
-
-@pytest.fixture(scope='session')
-def all_words():
-    p = Path('/usr/share/dict/american-english')
-    assert p.is_file()
-    with p.open() as f:
-        words = f.readlines()
-
-    return [w.strip() for w in words]
-
-
-@pytest.fixture
-def values(data_len, all_words):
-    return random.choices(all_words, k=data_len)
 
 
 @pytest.mark.repeat(10)

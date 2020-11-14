@@ -1,19 +1,83 @@
-from enum import Enum, auto
+from enum import Enum
+
 
 class Color(Enum):
-    BLACK = auto()
-    RED = auto()
+    BLACK = 'black'
+    RED = 'red'
+
+
+def correct(node):
+    if node.right is not None and node.right.color == Color.RED:
+        node = rotateLeft(node)
+    if node.left is not None and node.left.color == Color.RED and \
+        node.left.left is not None and node.left.left.color == Color.RED:
+        node = rotateRight(node)
+    if node.right is not None and node.right.color == Color.RED and \
+        node.left is not None and node.left.color == Color.RED:
+        flipColors(node)
+
+    return node
+
+
+def rotateLeft(node):
+    temp = node.right
+    node.right = temp.left
+    temp.left = node
+    temp.color = node.color
+    node.color = Color.RED
+    return temp
+
+
+def rotateRight(node):
+    temp = node.left
+    node.left = temp.right
+    temp.right = node
+    temp.color = node.color
+    node.color = Color.RED
+    return temp
+
+
+def flipColors(node):
+    node.color = Color.RED
+    if node.left is not None:
+        node.left.color = Color.BLACK
+    if node.right is not None:
+        node.right.color = Color.BLACK
+
+
+class RBT:
+    def __init__(self):
+        self.root = None
+
+    def get(self, key):
+        if self.root is None:
+            raise Exception('RBT is empty')
+        else:
+            return self.root.get(key)
+
+    def put(self, key, value=None):
+        if self.root is None:
+            self.root = Node(key, value, color=Color.BLACK)
+        else:
+            self.root.put(key, value)
+            self.root = correct(self.root)
+            self.root.color = Color.BLACK
 
 
 class Node:
-    def __init__(self, key, value, color=Color.BLACK):
+    def __init__(self, key, value=None, color=Color.RED):
         self.key = key
         self.value = value
         self.left = None
         self.right = None
         self.color = color
 
-    def get(key):
+    def __repr__(self):
+        left = f'{self.left}' if self.left is not None else ''
+        right = f'{self.right}' if self.right is not None else ''
+        return f'<{left}({self.key}/{self.color.value}){right}>'
+
+    def get(self, key):
         if self.key == key:
             return self
         elif key < self.key and self.left is not None:
@@ -23,46 +87,21 @@ class Node:
         else:
             raise Exception(f'Key {key} not found')
 
-    def put(key, value):
+    def put(self, key, value=None):
         if key == self.key:
             self.value = value
         elif key < self.key:
             if self.left is None:
-                self.left = Node(key, value, Color.RED)
+                self.left = Node(key, value)
             else:
                 self.left.put(key, value)
         elif key > self.key:
             if self.right is None:
-                self.right = Node(key, value, Color.RED)
+                self.right = Node(key, value)
             else:
                 self.right.put(key, value)
-            self.correct()
 
-    def correct(self):
         if self.right is not None:
-            if self.right.right is not None:
-                if self.right.right.color == Color.RED:
-                    self.right = self.rotateLeft(self.right)
+            self.right = correct(self.right)
         if self.left is not None:
-            if self.left.right is not None:
-                if self.left.right.color == Color.RED:
-                    self.left = self.rotateLeft(self.left)
-
-    @staticmethod
-    def rotateLeft(node):
-        temp = node.right
-        node.right = temp.left
-        temp.left = node
-        node.color = Color.RED
-        temp.color = Color.BLACK
-        return temp
-
-    @staticmethod
-    def rotateRight(node):
-        # FIXME
-        temp = node.right
-        node.right = temp.left
-        temp.left = node
-        node.color = Color.RED
-        temp.color = Color.BLACK
-        return temp
+            self.left = correct(self.left)
