@@ -92,3 +92,33 @@ class BFS(Search):
                     self.queue.put(v)
                     self.marked[v] = True
                     self.edge_to[v] = source
+
+
+class ConnectedComponent:
+    def __init__(self, graph):
+        self.graph = graph
+        self.count = 0
+        self.component_index = [None] * graph.num_v  # Replaces marked
+        self.search()
+
+    def search(self):
+        for source in range(self.graph.num_v):
+            if self.component_index[source] is None:
+                self.component_index[source] = self.count
+                self.dfs(source)
+                self.count += 1
+
+    def dfs(self, source):
+        for v in self.graph.adjacent(source):
+            if self.component_index[v] is None and v != source:
+                self.component_index[v] = self.count
+
+                self.dfs(v)
+
+    def is_connected(self, v: int, w: int) -> bool:
+        return self.component_index[v] is not None and self.component_index[v] == self.component_index[w]
+
+    def component_vertices(self, comp_index: int):
+        for vertex, component in enumerate(self.component_index):
+            if component == comp_index:
+                yield vertex
