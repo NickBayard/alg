@@ -3,28 +3,37 @@ import pytest
 from graph.undirected import (
     Graph,
     DFS,
-    BFS,
     ConnectedComponent,
 )
 
 
 @pytest.fixture
 def num_vertices():
-    return 5
+    return 10
 
 
 @pytest.fixture
 def edges():
-    return [(0, 1),
-            (0, 2),
-            (0, 3),
+    return [(0, 3),
+            (0, 6),
+            (3, 6),
+            (6, 8),
+            (6, 9),
+            (8, 9),
             (1, 2),
-            (2, 4),
-            (3, 4)]
+            (2, 5),
+            (4, 5),
+            (4, 7),
+            (5, 7),
+            ]
 
 @pytest.fixture
-def graph(num_vertices, edges):
-    g = Graph(num_vertices)
+def graph_class():
+    return Graph
+
+@pytest.fixture
+def graph(graph_class, num_vertices, edges):
+    g = graph_class(num_vertices)
 
     for x, y in edges:
         assert x < num_vertices

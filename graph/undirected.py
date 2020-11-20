@@ -67,6 +67,7 @@ class DFS(Search):
         if source >= self.graph.num_v:
             raise Exception(f'source {source} outside index range of {self.graph.num_v}')
 
+        self.marked[source] = True
         for v in self.graph.adjacent(source):
             if not self.marked[v]:
                 self.marked[v] = True
