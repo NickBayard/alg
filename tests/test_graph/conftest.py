@@ -5,6 +5,7 @@ from graph.undirected import (
     DFS,
     ConnectedComponent,
 )
+from graph.directed import DiGraph, DirectedCycle
 
 
 @pytest.fixture
@@ -62,3 +63,8 @@ def search(search_class, graph, source, num_vertices):
 @pytest.fixture
 def cc(graph):
     return ConnectedComponent(graph)
+
+@pytest.fixture
+def dir_cycle(graph):
+    assert isinstance(graph, DiGraph)
+    return DirectedCycle(graph)

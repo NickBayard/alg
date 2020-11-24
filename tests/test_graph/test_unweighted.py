@@ -5,7 +5,7 @@ from graph.undirected import (
     DFS,
     BFS,
 )
-from graph.directed import DiGraph
+from graph.directed import DiGraph, DirectedCycle
 
 
 
@@ -40,10 +40,16 @@ def test_connected_undirected(cc, graph_class):
     assert {v for v in cc.component_vertices(0)} == {0, 3, 6, 8, 9}
     assert {v for v in cc.component_vertices(1)} == {1, 2, 4, 5, 7}
 
-@pytest.mark.parametrize('graph_class', [DiGraph])
-def test_connected_directed(cc):
-    assert cc.count == 3
 
-    assert {v for v in cc.component_vertices(0)} == {0, 3, 6, 8, 9}
-    assert {v for v in cc.component_vertices(1)} == {1, 2, 5, 7}
-    assert {v for v in cc.component_vertices(2)} == {4}
+@pytest.mark.parametrize('num_vertices', [6])
+@pytest.mark.parametrize('edges', [[(0, 1),
+                                    (1, 2),
+                                    (2, 3),
+                                    (3, 4),
+                                    (4, 2),
+                                    (3, 5),
+                                    ]])
+@pytest.mark.parametrize('graph_class', [DiGraph])
+def test_directed_cycle(dir_cycle):
+    dir_cycle.search()
+    print([x for x in dir_cylce.get()])
