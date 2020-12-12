@@ -85,18 +85,18 @@ class Node:
         raise Exception(f'Key {key} not found')
 
     def min(self):
-        ''' Find the minimum node in this three '''
+        ''' Find the minimum node in this tree '''
         if self.left is None:
             return self
         else:
             return self.left.min()
 
     def max(self):
-        ''' Find the maximum node in this three '''
+        ''' Find the maximum node in this tree '''
         if self.right is None:
             return self
         else:
-            return self.right.min()
+            return self.right.max()
 
 
 class BST:
