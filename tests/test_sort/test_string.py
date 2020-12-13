@@ -1,6 +1,7 @@
 import pytest
+import random
 
-from sort import key_index_sort
+from sort.key_index_sort import sort, multi_sort, Alphabet
 
 
 @pytest.fixture
@@ -27,4 +28,26 @@ def data():
             (4, 'Wilson')]
 
 def test_key_index_sort(data):
-    print(key_index_sort.sort(data, 5))
+    print(sort(data, 5))
+
+
+@pytest.fixture
+def suit_prims():
+    return ['C', 'D', 'H', 'S']
+
+
+@pytest.fixture
+def card_prims():
+    return [str(i) for i in range(2, 10)] + ['J', 'Q', 'K', 'A']
+
+
+@pytest.fixture
+def mixed_deck(suit_prims, card_prims):
+    deck = [f'{suit}{num}' for suit in suit_prims for num in card_prims]
+    random.shuffle(deck)
+    return deck
+
+
+def test_deck(mixed_deck, suit_prims, card_prims):
+    multi_sort(mixed_deck, 2, alphabets=[Alphabet(suit_prims), Alphabet(card_prims)])
+    print(mixed_deck)
