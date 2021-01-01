@@ -22,9 +22,9 @@ def value_str(values):
 
 @pytest.fixture
 def app():
-    return 'bin/quick'
+    return 'quick'
 
 
 @pytest.fixture
 def result(app, value_str):
-    return subprocess.check_output(app.split(), text=True, input=value_str)
+    return subprocess.check_output(f'bin/{app}'.split(), text=True, input=value_str)

@@ -8,10 +8,17 @@ SHELL=bash
 quick: src/quick_sort.cpp includes/input.h
 	@${CC} -std=${STD} -I includes src/quick_sort.cpp -o bin/quick
 
-test_quick: quick
-	@pipenv run pytest -s tests/test_quick_sort.py
+heap: src/heap_sort.cpp includes/input.h
+	@${CC} -std=${STD} -I includes src/heap_sort.cpp -o bin/heap
 
-tests: test_quick
+test_quick: quick
+	@pipenv run pytest -x tests/test_sort.py::test_quick_sort
+
+test_heap: heap
+	@pipenv run pytest -x tests/test_sort.py::test_heap_sort
+
+tests: quick heap
+	@pipenv run pytest -x tests/test_sort.py
 
 clean:
 	@rm bin/* 2> /dev/null

@@ -14,6 +14,7 @@ void shuffle_vector(std::vector<int>& v)
     std::shuffle(v.begin(), v.end(), g);
 }
 
+
 void sort(std::vector<int>& data, std::size_t start, std::size_t end, bool shuffle=true)
 {
     if (shuffle) shuffle_vector(data);
