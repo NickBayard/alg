@@ -1,8 +1,8 @@
 #include <iostream>
 #include <algorithm>
 #include <vector>
-#include <stdexcept>
 #include <input.h>
+#include <stdexcept>
 
 
 template <class T>
@@ -32,11 +32,10 @@ private:
     void sink()
     {
         std::size_t index{1};
-        std::size_t child;
+        std::size_t child{index * 2};
 
-        while (index * 2 <= bottom)
+        while (child <= bottom)
         {
-            child = index * 2;
 
             if ((child < bottom) && (backing[child] < backing[child+1]))
             {
@@ -50,6 +49,7 @@ private:
 
             std::swap(backing[child], backing[index]);
             index = child;
+            child = index * 2;
         }
 
     }
