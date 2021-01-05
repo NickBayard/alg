@@ -67,7 +67,7 @@ void sort(std::vector<int>& data, std::size_t start, std::size_t end, bool shuff
 
 int main()
 {
-    std::vector<int> v{std::move(get_vector<int>())};
+    std::vector<int> v{std::move(get_data<int>())};
 
     sort(v, 0, v.size()-1);
 

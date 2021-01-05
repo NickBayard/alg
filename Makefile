@@ -3,7 +3,7 @@ STD:=c++17
 SHELL=bash
 
 
-.PHONY: quick test_quick tests clean
+.PHONY: quick heap bst test_quick test_heap test_bst tests clean
 
 quick: cpp/src/quick_sort.cpp cpp/includes/input.h
 	@${CC} -std=${STD} -I cpp/includes cpp/src/quick_sort.cpp -o cpp/bin/quick
@@ -11,14 +11,23 @@ quick: cpp/src/quick_sort.cpp cpp/includes/input.h
 heap: cpp/src/heap_sort.cpp cpp/includes/input.h
 	@${CC} -std=${STD} -I cpp/includes cpp/src/heap_sort.cpp -o cpp/bin/heap
 
+bst: cpp/src/binary_tree.cpp cpp/includes/input.h
+	@${CC} -std=${STD} -I cpp/includes cpp/src/binary_tree.cpp -o cpp/bin/bst
+
+rbbst: cpp/src/balanced_tree.cpp
+	@${CC} -std=${STD} cpp/src/balanced_tree.cpp -o cpp/bin/rbbst
+
 test_quick: quick
 	@pipenv run pytest -x tests/test_cpp/test_sort.py::test_quick_sort
 
 test_heap: heap
 	@pipenv run pytest -x tests/test_cpp/test_sort.py::test_heap_sort
 
-tests: quick heap
-	@pipenv run pytest -x tests/test_cpp/test_sort.py
+test_bst: bst
+	@pipenv run pytest -x tests/test_cpp/test_search.py::test_bst
+
+tests: test_quick test_heap test_bst
+	@pipenv run pytest -x tests/test_cpp/
 
 clean:
 	@rm bin/* 2> /dev/null

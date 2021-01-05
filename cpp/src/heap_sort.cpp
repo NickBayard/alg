@@ -91,7 +91,7 @@ public:
 
 int main()
 {
-    std::vector<int> v{std::move(get_vector<int>())};
+    std::vector<int> v{std::move(get_data<int>())};
     Heap<int> heap;
 
     for (auto i: v)
