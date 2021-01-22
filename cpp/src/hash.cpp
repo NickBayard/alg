@@ -111,7 +111,7 @@ public:
         {
             if (h.backing[i])
             {
-                out << i<< ": " << h.backing[i]->first << ", " << h.backing[i]->second << "\n";
+                out << i << ": " << h.backing[i]->first << ", " << h.backing[i]->second << "\n";
             }
             else
             {
